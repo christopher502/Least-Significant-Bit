@@ -72,6 +72,7 @@ public class DecoderView extends VerticalLayout {
                     comboBoxComponent.getComboBox().setValue("");
                 }
             } catch (Exception exception) {
+                System.out.println(exception);
                 System.out.println(exception.getMessage());
                 showErrorNotification(primaryButton, "We were unable to decode the hidden message");
             }

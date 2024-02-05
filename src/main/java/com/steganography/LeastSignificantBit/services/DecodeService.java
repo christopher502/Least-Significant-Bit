@@ -25,13 +25,15 @@ public class DecodeService {
      */
     public static String parseBinaryString(String binaryString) {
         StringBuilder result = new StringBuilder();
-
-        for (int i = 0; i < binaryString.length(); i += 8) {
-            String binaryChar = binaryString.substring(i, i + 8);
-            char character = (char) Integer.parseInt(binaryChar, 2);
-            result.append(character);
+        try {
+            for (int i = 0; i < binaryString.length(); i += 8) {
+                String binaryChar = binaryString.substring(i, i + 8);
+                char character = (char) Integer.parseInt(binaryChar, 2);
+                result.append(character);
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
-
         return result.toString();
     }
 
@@ -59,7 +61,7 @@ public class DecodeService {
 
     private String extractBinaryMessage(BufferedImage bufferedImage, Integer bitsNumber) {
         Integer messageLength = getMessageLength(bufferedImage, bitsNumber);
-        int totalPixels = (int) Math.ceil((8 * (messageLength + 1)) / (4 * bitsNumber));
+        int totalPixels = (int) Math.ceil((8 * (messageLength + 1)) / (4 * bitsNumber)) + 1;
         StringBuilder extractedMessageBinary = getBinaryValues(bufferedImage, bitsNumber, totalPixels);
 
         return extractedMessageBinary.substring(8, ((messageLength + 1) * 8));
@@ -75,15 +77,18 @@ public class DecodeService {
      */
     private StringBuilder getBinaryValues(BufferedImage bufferedImage, Integer bitsNumber, Integer totalPixels) {
         StringBuilder binaryValues = new StringBuilder();
+        try {
+            OUTER:
+            for (int width = 0, pixelsCounter = 1; width < bufferedImage.getWidth(); width++)
+                for (int height = 0; height < bufferedImage.getHeight(); height++) {
+                    SteganographyUtils.extractRgbaChannels(bufferedImage.getRGB(width, height))
+                            .forEach(sb -> binaryValues.append(sb.substring(sb.length() - bitsNumber)));
 
-        OUTER:
-        for (int width = 0, pixelsCounter = 1; width < bufferedImage.getWidth(); width++)
-            for (int height = 0; height < bufferedImage.getHeight(); height++) {
-                SteganographyUtils.extractRgbaChannels(bufferedImage.getRGB(width, height))
-                        .forEach(sb -> binaryValues.append(sb.substring(sb.length() - bitsNumber)));
-
-                if (pixelsCounter++ == totalPixels) break OUTER;
-            }
+                    if (pixelsCounter++ == totalPixels) break OUTER;
+                }
+        } catch(Exception exception) {
+            exception.printStackTrace();
+        }
         return binaryValues;
     }
 }
