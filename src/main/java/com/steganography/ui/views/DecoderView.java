@@ -1,18 +1,21 @@
 package com.steganography.ui.views;
 
 import com.steganography.backend.services.SteganographyService;
+import com.steganography.backend.utils.SteganographyUtils;
 import com.steganography.ui.components.*;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
-@Route("decoder")
+@PageTitle("Decode")
+@Route("decode")
 public class DecoderView extends VerticalLayout {
     private UploadComponent uploadComponent;
     private ComboBoxComponent comboBoxComponent;
@@ -62,7 +65,7 @@ public class DecoderView extends VerticalLayout {
                     SteganographyService steganographyService = new SteganographyService();
 
                     String decodeMessage = steganographyService.decodeMessage(
-                            readBufferedImage(),
+                            SteganographyUtils.readBufferedImage(uploadComponent),
                             Integer.valueOf(comboBoxComponent.getComboBox().getValue())
                     );
                     DialogComponent dialogComponent = new DialogComponent(decodeMessage);
@@ -84,15 +87,5 @@ public class DecoderView extends VerticalLayout {
         notification.addDetachListener(detachEvent -> primaryButton.setEnabled(true));
         uploadComponent.getUpload().clearFileList();
         comboBoxComponent.getComboBox().setValue("");
-    }
-
-    private BufferedImage readBufferedImage() {
-        try {
-            BufferedImage bufferedImage = ImageIO.read(uploadComponent.getMemoryBuffer().getInputStream());
-            return bufferedImage;
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return null;
-        }
     }
 }

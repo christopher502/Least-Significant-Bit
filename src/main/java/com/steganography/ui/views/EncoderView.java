@@ -1,6 +1,7 @@
 package com.steganography.ui.views;
 
 import com.steganography.backend.services.SteganographyService;
+import com.steganography.backend.utils.SteganographyUtils;
 import com.steganography.ui.components.*;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Anchor;
@@ -8,6 +9,7 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.StreamResource;
 
@@ -17,7 +19,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-@Route("encoder")
+@PageTitle("Encode")
+@Route("encode")
 public class EncoderView extends VerticalLayout {
     private TextAreaComponent textAreaComponent;
     private UploadComponent uploadComponent;
@@ -75,7 +78,7 @@ public class EncoderView extends VerticalLayout {
                     SteganographyService steganographyService = new SteganographyService();
 
                     BufferedImage encodedImage = steganographyService.encodeMessage(
-                            readBufferedImage(),
+                            SteganographyUtils.readBufferedImage(uploadComponent),
                             Integer.parseInt(comboBoxComponent.getComboBox().getValue()),
                             textAreaComponent.getTextArea().getValue());
 
@@ -89,7 +92,6 @@ public class EncoderView extends VerticalLayout {
                         anchor.getElement().setAttribute("download", "encodedImage.png");
                         add(anchor);
                         anchor.getElement().executeJs("this.click()");
-                        ;
 
                         primaryButton.setEnabled(true);
                         uploadComponent.getUpload().clearFileList();
@@ -108,16 +110,5 @@ public class EncoderView extends VerticalLayout {
     private void showErrorNotification(Button primaryButton, String message) {
         Notification notification = NotificationWarningComponent.show(message);
         notification.addDetachListener(detachEvent -> primaryButton.setEnabled(true));
-    }
-
-
-    private BufferedImage readBufferedImage() {
-        try {
-            BufferedImage bufferedImage = ImageIO.read(uploadComponent.getMemoryBuffer().getInputStream());
-            return bufferedImage;
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return null;
-        }
     }
 }

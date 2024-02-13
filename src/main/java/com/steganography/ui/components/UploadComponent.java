@@ -12,8 +12,7 @@ public class UploadComponent extends Div {
     public UploadComponent() {
         memoryBuffer = new MemoryBuffer();
         upload = new Upload(memoryBuffer);
-        upload.setAcceptedFileTypes("application/png", ".png");
-
+        upload.setAcceptedFileTypes(".png", ".jpg", ".jpeg");
 
         upload.addFileRejectedListener(event -> {
             String errorMessage = event.getErrorMessage();

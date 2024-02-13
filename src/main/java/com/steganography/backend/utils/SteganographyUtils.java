@@ -1,5 +1,9 @@
 package com.steganography.backend.utils;
 
+import com.steganography.ui.components.UploadComponent;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,5 +21,30 @@ public class SteganographyUtils {
                         .format("%8s", Integer.toBinaryString(value))
                         .replace(' ', '0')))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Method to read the image from the memory buffer attached to the upload component
+     * @param uploadComponent the upload component
+     * @return buffered image
+     */
+    public static BufferedImage readBufferedImage(UploadComponent uploadComponent) {
+        try {
+            BufferedImage bufferedImage = ImageIO.read(uploadComponent.getMemoryBuffer().getInputStream());
+
+            String filename = uploadComponent.getMemoryBuffer().getFileName();
+            if (!filename.endsWith("png")) {
+                BufferedImage converted = new BufferedImage(
+                        bufferedImage.getWidth(),
+                        bufferedImage.getHeight(),
+                        BufferedImage.TYPE_INT_ARGB);
+                converted.getGraphics().drawImage(bufferedImage, 0, 0, null);
+                return converted;
+            }
+            return bufferedImage;
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return null;
+        }
     }
 }
