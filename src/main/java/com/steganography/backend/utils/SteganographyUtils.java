@@ -25,6 +25,7 @@ public class SteganographyUtils {
 
     /**
      * Method to read the image from the memory buffer attached to the upload component
+     *
      * @param uploadComponent the upload component
      * @return buffered image
      */
