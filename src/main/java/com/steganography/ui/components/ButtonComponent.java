@@ -1,4 +1,4 @@
-package com.steganography.LeastSignificantBit.components;
+package com.steganography.ui.components;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;

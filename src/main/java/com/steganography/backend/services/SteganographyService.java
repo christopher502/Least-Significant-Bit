@@ -1,4 +1,4 @@
-package com.steganography.LeastSignificantBit.services;
+package com.steganography.backend.services;
 
 import java.awt.image.BufferedImage;
 

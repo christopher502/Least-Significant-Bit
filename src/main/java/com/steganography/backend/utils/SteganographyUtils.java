@@ -1,4 +1,4 @@
-package com.steganography.LeastSignificantBit.utils;
+package com.steganography.backend.utils;
 
 import java.util.List;
 import java.util.stream.Collectors;

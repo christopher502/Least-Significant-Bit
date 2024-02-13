@@ -1,6 +1,6 @@
-package com.steganography.LeastSignificantBit.services;
+package com.steganography.backend.services;
 
-import com.steganography.LeastSignificantBit.utils.SteganographyUtils;
+import com.steganography.backend.utils.SteganographyUtils;
 
 import java.awt.image.BufferedImage;
 import java.util.List;

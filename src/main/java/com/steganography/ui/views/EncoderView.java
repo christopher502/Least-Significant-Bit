@@ -1,7 +1,7 @@
-package com.steganography.LeastSignificantBit.views;
+package com.steganography.ui.views;
 
-import com.steganography.LeastSignificantBit.components.*;
-import com.steganography.LeastSignificantBit.services.SteganographyService;
+import com.steganography.backend.services.SteganographyService;
+import com.steganography.ui.components.*;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;

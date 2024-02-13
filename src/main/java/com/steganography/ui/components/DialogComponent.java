@@ -1,4 +1,4 @@
-package com.steganography.LeastSignificantBit.components;
+package com.steganography.ui.components;
 
 import com.vaadin.flow.component.confirmdialog.ConfirmDialog;
 import com.vaadin.flow.component.html.Div;
