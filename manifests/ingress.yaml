@@ -2,14 +2,15 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: steganography-ingress
-  namespace: steganography
+  namespace: steganography-ns
 spec:
-  rule:
+  ingressClassName: traefik
+  rules:
   - host: "steganography.tira.com.ro"
     http:
       paths:
-      - path: /
-        pathType: Prefix
+      - pathType: Prefix
+        path: /
         backend:
           service:
             name: steganography-svc
