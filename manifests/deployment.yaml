@@ -1,10 +1,10 @@
-apiVersion: v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: steganography-app
   namespace: steganography-ns
 spec:
-  replcias: 1
+  replicas: 1
   selector:
     matchLabels:
       app: steganography
@@ -18,4 +18,4 @@ spec:
         image: christopher402/steganography:1.0.0
         ports:
         - name: web
-          cotainerPort: 8080
+          containerPort: 8080
