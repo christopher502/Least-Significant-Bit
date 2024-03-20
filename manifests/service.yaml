@@ -1,7 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: csteganography-svc
+  name: steganography-svc
+  namespace: steganography
+  labels:
+    app: steganography-app
 spec:
   type: ClusterIP
   selector:
