@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: steganography
-        image: christopher402/steganography:1.0.0
+        image: christopher402/steganography:2.0.0
         ports:
         - name: web
           containerPort: 8080
