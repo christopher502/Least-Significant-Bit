@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: steganography-app
+spec:
+  selector:
+    matchLabels:
+      app: steganography
+  template:
+    metadata:
+      labels:
+        app: steganography
+    spec:
+      containers:
+      - name: steganography
+        image: christopher402/steganography:1.0.0
+        ports:
+          - name: web
+            containerPort: 8080
