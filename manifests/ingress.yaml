@@ -16,7 +16,3 @@ spec:
             name: steganography-svc
             port:
               number: 8080
-status:
-  loadBalancer:
-    ingress:
-      - ip: 127.0.0.1
