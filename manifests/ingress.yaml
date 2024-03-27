@@ -3,9 +3,6 @@ kind: Ingress
 metadata:
   name: steganography-ingress
   namespace: argocd
-  metadata:
-    annotations:
-      argocd.argoproj.io/hook: PostSync
 spec:
   ingressClassName: traefik
   rules:
