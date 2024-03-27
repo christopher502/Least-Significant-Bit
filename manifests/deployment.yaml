@@ -19,3 +19,7 @@ spec:
         ports:
         - name: web
           containerPort: 8080
+status:
+  loadBalancer:
+    ingress:
+      - ip: 127.0.0.1
