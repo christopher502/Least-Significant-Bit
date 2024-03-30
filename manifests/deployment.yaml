@@ -19,3 +19,14 @@ spec:
         ports:
         - name: web
           containerPort: 8080
+        env:
+          - name: PORT
+            valueFrom:
+              configMapKeyRef:
+                name: steganography-cm
+                key: PORT
+          - name: PROD_MODE
+            valueFrom:
+              configMapKeyRef:
+                name: steganography-cm
+                key: PROD_MODE
