@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: steganography-ingress
-  namespace: argocd
+  namespace: default
 spec:
   ingressClassName: traefik
   rules:
